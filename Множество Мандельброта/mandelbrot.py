@@ -33,6 +33,8 @@ image = np.zeros((ppoints, qpoints))
 arr_ppoins = np.linspace(pmin, pmax, ppoints)
 N = len(arr_ppoins)
 
+start_time = time.time()
+
 jobs = []
 flows = 10
 n = N / flows
@@ -44,9 +46,14 @@ for j in jobs:
 for j in jobs:
     j.join()
 
+end_time = time.time()
+
+
 plt.xticks([])
 plt.yticks([])
 
 plt.imshow(-image.T, cmap='Greys')
+
+plt.text(0, 1, f"parallel, time: {end_time - start_time}", backgroundcolor='white', color='black')
 
 plt.show()
